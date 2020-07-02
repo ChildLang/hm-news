@@ -7,7 +7,7 @@ import 'amfe-flexible'
 // 导入样式
 import './styles/common.less'
 import './styles/iconfont.less'
-// 导入路由配置
+// 导入路由配置文件
 import router from './router/index.js'
 // 按需导入vant组件库
 import { Form, Button, Field, Toast } from 'vant'
@@ -17,8 +17,9 @@ import NewsLogo from './components/NewsLogo.vue'
 // 导入axios,挂载到Vue原型上
 import axios from 'axios'
 Vue.prototype.$axios = axios
+// 配置axios的基准地址
 axios.defaults.baseURL = 'http://localhost:3000'
-// 配置组件
+// 注册组件
 Vue.component('newsheader', NewsHeader)
 Vue.component('news-logo', NewsLogo)
 // 初始化组件

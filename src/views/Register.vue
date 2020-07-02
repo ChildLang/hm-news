@@ -57,10 +57,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const res = await this.$axios.post(
-        'http://localhost:3000/register',
-        this.user
-      )
+      const res = await this.$axios.post('/register', this.user)
       console.log(res.data)
       const { statusCode, message } = res.data
       if (statusCode === 200) {
