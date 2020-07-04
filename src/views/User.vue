@@ -29,6 +29,7 @@
       <template v-slot:content>文章/视频</template>
     </news-nav>
     <news-nav @click="$router.push('/useredit')">设置</news-nav>
+    <news-nav @click="outFn">退出</news-nav>
   </div>
 </template>
 <script>
@@ -55,6 +56,24 @@ export default {
     //   localStorage.removeItem('token')
     //   localStorage.removeItem('id')
     // }
+  },
+  methods: {
+    outFn() {
+      this.$dialog
+        .confirm({
+          title: '提示',
+          message: '是否退出'
+        })
+        .then(() => {
+          localStorage.removeItem('id')
+          localStorage.removeItem('token')
+          this.$toast.success('退出登录成功')
+          this.$router.push('/login')
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
   }
 }
 </script>

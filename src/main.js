@@ -10,7 +10,18 @@ import './styles/iconfont.less'
 // 导入路由配置文件
 import router from './router/index.js'
 // 按需导入vant组件库
-import { Form, Button, Field, Toast } from 'vant'
+import {
+  Form,
+  Button,
+  Field,
+  Toast,
+  Dialog,
+  RadioGroup,
+  Radio,
+  CellGroup,
+  Cell,
+  Uploader
+} from 'vant'
 // 导入通用组件
 import NewsHeader from './components/NewsHeader.vue'
 import NewsLogo from './components/NewsLogo.vue'
@@ -31,7 +42,6 @@ axios.interceptors.request.use(function(config) {
   return config
 })
 axios.interceptors.response.use(function(res) {
-  console.log(res)
   const { statusCode, message } = res.data
   if (statusCode === 401 && message === '用户信息验证失败') {
     Toast.fail(message)
@@ -54,6 +64,12 @@ Vue.use(Form)
 Vue.use(Button)
 Vue.use(Field)
 Vue.use(Toast)
+Vue.use(Dialog)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(CellGroup)
+Vue.use(Cell)
+Vue.use(Uploader)
 
 Vue.config.productionTip = false
 
