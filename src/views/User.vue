@@ -16,11 +16,11 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </div>
-    <news-nav>
+    <news-nav @click="$router.push('/myfollows')">
       <template>我的关注</template>
       <template v-slot:content>关注的用户</template>
     </news-nav>
-    <news-nav>
+    <news-nav @click="$router.push('/mycomment')">
       <template>我的跟帖</template>
       <template v-slot:content>跟帖/回复</template>
     </news-nav>
@@ -58,21 +58,19 @@ export default {
     // }
   },
   methods: {
-    outFn() {
-      this.$dialog
-        .confirm({
+    async outFn() {
+      try {
+        await this.$dialog.confirm({
           title: '提示',
           message: '是否退出'
         })
-        .then(() => {
-          localStorage.removeItem('id')
-          localStorage.removeItem('token')
-          this.$toast.success('退出登录成功')
-          this.$router.push('/login')
-        })
-        .catch(() => {
-          // on cancel
-        })
+        localStorage.removeItem('id')
+        localStorage.removeItem('token')
+        this.$toast.success('退出登录成功')
+        this.$router.push('/login')
+      } catch {
+        this.$toast('取消退出')
+      }
     }
   }
 }

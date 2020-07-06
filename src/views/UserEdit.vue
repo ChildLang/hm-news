@@ -1,5 +1,19 @@
 <template>
   <div class="useredit">
+    <div class="mask" v-show="isShow">
+      <van-button type="primary" @click="crop">裁剪</van-button>
+      <van-button type="warning" @click="cancel">取消</van-button>
+      <VueCropper
+        ref="cropper"
+        :img="img"
+        autoCrop
+        centerBox
+        :autoCropWidth="150"
+        :autoCropHeight="150"
+        :fixedNumber="[1,1]"
+        fixed
+      ></VueCropper>
+    </div>
     <newsheader>编辑资料</newsheader>
     <div class="pic">
       <img :src="$axios.defaults.baseURL+info.head_img" alt>
@@ -46,7 +60,11 @@
   </div>
 </template>
 <script>
+import { VueCropper } from 'vue-cropper'
 export default {
+  components: {
+    VueCropper: VueCropper
+  },
   data() {
     return {
       info: {},
@@ -55,7 +73,9 @@ export default {
       Gshow: false,
       nickname: '',
       password: '',
-      gender: 1
+      gender: 1,
+      isShow: false,
+      img: ''
     }
   },
   created() {
@@ -121,14 +141,25 @@ export default {
     async afterRead(file) {
       // 此时可以自行将文件上传至服务器
       console.log(file)
-      const fd = new FormData()
-      fd.append('file', file.file)
-      const res = await this.$axios.post('/upload', fd)
-      console.log(res)
-      const { statusCode, data } = res.data
-      if (statusCode === 200) {
-        this.editUser({ head_img: data.url })
-      }
+      this.isShow = true
+      this.img = file.content
+    },
+    cancel() {
+      this.isShow = false
+      this.$toast('取消')
+    },
+    crop() {
+      this.$refs.cropper.getCropBlob(async blob => {
+        const fd = new FormData()
+        fd.append('file', blob)
+        const res = await this.$axios.post('/upload', fd)
+        console.log(res)
+        const { statusCode, data } = res.data
+        if (statusCode === 200) {
+          this.editUser({ head_img: data.url })
+          this.isShow = false
+        }
+      })
     }
   }
 }
@@ -160,6 +191,25 @@ export default {
     transform: translateX(-50%);
     border-radius: 50%;
     opacity: 0;
+  }
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    .van-button {
+      position: absolute;
+      top: 0;
+      z-index: 999;
+    }
+    .van-button:nth-child(1) {
+      left: 0;
+    }
+    .van-button:nth-child(2) {
+      right: 0;
+    }
   }
 }
 </style>

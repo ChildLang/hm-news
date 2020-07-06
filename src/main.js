@@ -20,7 +20,8 @@ import {
   Radio,
   CellGroup,
   Cell,
-  Uploader
+  Uploader,
+  List
 } from 'vant'
 // 导入通用组件
 import NewsHeader from './components/NewsHeader.vue'
@@ -70,6 +71,7 @@ Vue.use(RadioGroup)
 Vue.use(CellGroup)
 Vue.use(Cell)
 Vue.use(Uploader)
+Vue.use(List)
 
 Vue.config.productionTip = false
 
