@@ -21,12 +21,15 @@ import {
   CellGroup,
   Cell,
   Uploader,
-  List
+  List,
+  Tab,
+  Tabs
 } from 'vant'
 // 导入通用组件
 import NewsHeader from './components/NewsHeader.vue'
 import NewsLogo from './components/NewsLogo.vue'
 import NewsNav from './components/NewsNav.vue'
+import NewsPost from './components/NewsPost.vue'
 // 导入日期插件moment
 import moment from 'moment'
 // 导入axios,挂载到Vue原型上
@@ -56,10 +59,18 @@ axios.interceptors.response.use(function(res) {
 Vue.filter('time', function(input) {
   return moment(input).format('YYYY-MM-DD')
 })
+Vue.prototype.$url = function(url) {
+  if (url.startsWith('http')) {
+    return url
+  } else {
+    return axios.defaults.baseURL + url
+  }
+}
 // 注册组件
 Vue.component('newsheader', NewsHeader)
 Vue.component('news-logo', NewsLogo)
 Vue.component('news-nav', NewsNav)
+Vue.component('news-post', NewsPost)
 // 初始化组件
 Vue.use(Form)
 Vue.use(Button)
@@ -72,6 +83,8 @@ Vue.use(CellGroup)
 Vue.use(Cell)
 Vue.use(Uploader)
 Vue.use(List)
+Vue.use(Tab)
+Vue.use(Tabs)
 
 Vue.config.productionTip = false
 

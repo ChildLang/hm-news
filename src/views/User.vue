@@ -24,7 +24,7 @@
       <template>我的跟帖</template>
       <template v-slot:content>跟帖/回复</template>
     </news-nav>
-    <news-nav>
+    <news-nav @click="$router.push('/star')">
       <template>我的收藏</template>
       <template v-slot:content>文章/视频</template>
     </news-nav>

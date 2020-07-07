@@ -8,7 +8,7 @@
         finished-text="没有更多了"
         @load="onLoad"
         :immediate-check="false"
-        :offset="0"
+        :offset="10"
       >
         <li class="list" v-for="item in list" :key="item.id">
           <p class="time">{{item.create_date | time}}</p>
@@ -18,7 +18,7 @@
           </div>
           <div class="content">{{item.content}}</div>
           <div class="article">
-            <p>{{item.post.title}}</p>
+            <p>原文:{{item.post.title}}</p>
             <span class="iconfont iconjiantou1"></span>
           </div>
         </li>
@@ -51,17 +51,21 @@ export default {
       console.log(res)
       const { statusCode, data } = res.data
       if (statusCode === 200) {
-        this.list = this.list.concat(data)
+        this.list = [...this.list, ...data]
         this.loading = false
-        if (this.list.length >= 19) {
+        console.log(data.length)
+        if (data.length < this.pageSize) {
           this.finished = true
         }
       }
+      console.log(this.list)
     },
     onLoad() {
       console.log('加载中...')
-      ++this.pageIndex
-      this.getList()
+      setTimeout(() => {
+        ++this.pageIndex
+        this.getList()
+      }, 2000)
     }
   }
 }

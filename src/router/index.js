@@ -6,16 +6,20 @@ import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
 import MyFollows from '../views/MyFollows.vue'
 import Comment from '../views/Comment.vue'
+import Star from '../views/Star.vue'
+import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
+    { path: '/', component: Home, name: 'home' },
     { path: '/login', component: Login, name: 'login' },
     { path: '/register', component: Register, name: 'register' },
     { path: '/user', component: User, name: 'user' },
     { path: '/useredit', component: UserEdit, name: 'useredit' },
     { path: '/myfollows', component: MyFollows, name: 'myfollows' },
-    { path: '/mycomment', component: Comment, name: 'mycomment' }
+    { path: '/mycomment', component: Comment, name: 'mycomment' },
+    { path: '/star', component: Star, name: 'star' }
   ]
 })
 // 全局的导航守卫（路由的钩子函数 beforeEach afterEach）
