@@ -28,7 +28,7 @@
       </div>
       <div class="name">
         <span>{{post.user.nickname}}</span>
-        <span>{{post.comment_length}}跟帖</span>
+        <span>{{post.comment_length || post.comments.length}}跟帖</span>
       </div>
     </div>
   </div>
