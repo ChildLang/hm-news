@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <newsheader></newsheader> -->
     <router-view></router-view>
-    <div class="show">123456789</div>
+    <div class="show">abc</div>
   </div>
 </template>
 <script>
